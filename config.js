@@ -38,6 +38,7 @@ module.exports = {
     botEmoji: process.env.SOUNDTRACK_SLACK_BOT_EMOJI || ':tinatwerk:'
   },
   settings: {
-    sortPlaylists: process.env.SOUNDTRACK_SORT_PLAYLISTS || false
+    sortPlaylists: process.env.SOUNDTRACK_SORT_PLAYLISTS || false,
+    skipScore: process.env.SOUNDTRACK_SKIP_SCORE || -3
   }
 }
