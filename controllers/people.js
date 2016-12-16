@@ -218,6 +218,14 @@ module.exports = {
 
       person.bio    = (req.param('bio'))   ? req.param('bio')   : person.bio;
       person.email  = (req.param('email')) ? req.param('email') : person.email;
+      if (req.param('slackUsername')) {
+        slack = {
+          username: req.param('slackUsername')
+        }
+        if (!person.profiles) person.profiles = {};
+        person.profiles.slack = slack;
+      } 
+      person.slack  = (req.param('email')) ? req.param('email') : person.email;
 
       if (typeof(person.email) == 'string') {
         var hash = require('crypto').createHash('md5').update( person.email.toLowerCase() ).digest('hex');

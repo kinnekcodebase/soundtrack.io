@@ -51,6 +51,9 @@ block content
         h4 Email Address (used for avatars, using <a href="http://en.gravatar.com/">gravatar</a>)
         input.input-block-level(name="email", value="#{((person.email) ? person.email : '')}")
 
+        h4 Slack Username
+        input.input-block-level(name="slackUsername", value="#{((person.profiles && person.profiles.slack && person.profiles.slack.username) ? person.profiles.slack.username : '')}")
+
         button.btn.btn-primary(type="submit") Make Changes &raquo;
         
     if (artist)

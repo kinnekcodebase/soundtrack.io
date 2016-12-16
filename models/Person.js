@@ -41,6 +41,9 @@ var PersonSchema = new Schema({
         username: String,
         token: String,
         updated: Date
+      },
+      slack: {
+        username: String
       }
     }
   , preferences: {

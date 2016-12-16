@@ -1279,6 +1279,7 @@ $(window).load(function() {
     var slug = $self.data('room-slug');
     $.getJSON('/rooms/'+slug, function(room) {
       $('#edit-room-modal').find('textarea[name=description]').val( room.description );
+      $('#edit-room-modal').find('input[name=slackChannel]').val( room.slackChannel );
       $('#edit-room-modal').find('input[name=roomSlug]').val( room.slug );
       $('#edit-room-modal').modal();
     });
@@ -1294,7 +1295,8 @@ $(window).load(function() {
       url: '/rooms/' + slug,
       dataType: 'json',
       data: {
-        description: $self.find('textarea[name=description]').val()
+        description: $self.find('textarea[name=description]').val(),
+        slackChannel: $self.find('input[name=slackChannel]').val()
       },
       success: function() {
         $self.modal('hide');

@@ -31,5 +31,13 @@ module.exports = {
   spotify: {
     id: process.env.SOUNDTRACK_SPOTIFY_ID || 'id here',
     secret: process.env.SOUNDTRACK_SPOTIFY_SECRET || 'secret here'
+  },
+  slack: {
+    token: process.env.SOUNDTRACK_SLACK_API_TOKEN || '',
+    botUsername: process.env.SOUNDTRACK_SLACK_BOT_USERNAME || 'DSKO DJ',
+    botEmoji: process.env.SOUNDTRACK_SLACK_BOT_EMOJI || ':tinatwerk:'
+  },
+  settings: {
+    sortPlaylists: process.env.SOUNDTRACK_SORT_PLAYLISTS || false
   }
 }

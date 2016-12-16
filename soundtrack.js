@@ -803,7 +803,23 @@ app.post('/playlist/:trackID', requireLogin, function(req, res, next) {
   if (!index) { return next(); }
   if (!room.playlist[ index ].votes) { room.playlist[ index ].votes = {}; }
 
-  room.playlist[ index ].votes[ req.user._id ] = (req.param('v') == 'up') ? 1 : -1;
+  var voteDir = req.param('v')
+  var newVote =  voteDir == 'up' ? 1 : -1;
+  var currentVote = room.playlist[ index ].votes[ req.user._id ];
+  if (currentVote != newVote) { // handles both no vote yet & wanna change vote cases
+    room.playlist[ index ].votes[ req.user._id ] = newVote;
+    if (room.slackChannel && req.user.profiles && req.user.profiles.slack && req.user.profiles.slack.username) {
+      Track.findOne( { _id: req.params.trackID } ).populate('_artist _artists').exec(function(err, track) {
+        var verbed = voteDir + 'voted';
+        var emoji = ":thumbs" + voteDir + "::skin-tone-3:";
+        soundtrack.slack.postMessage(room.slackChannel,
+          "*" + req.user.profiles.slack.username + "*  just " + verbed + " " + emoji +
+          " *" + track.title + "* by *" + track._artist.name + "* in *" + room.name + "*")});
+    }
+  } else if (newVote == currentVote) { // undo your vote
+    delete room.playlist[ index ].votes[ req.user._id ];
+  } // else already voted this way
+
   room.playlist[ index ].score = _.reduce( room.playlist[ index ].votes , function(score, vote) {
     return score + vote;
   }, 0);
@@ -972,6 +988,7 @@ app.patch('/rooms/:roomSlug', requireLogin, function(req, res, next) {
     if (room._owner.toString() !== req.user._id.toString()) return next();
     
     room.description = req.param('description');
+    room.slackChannel = req.param('slackChannel');
     room.save(function(err) {
       res.send(room);
     });
@@ -1108,6 +1125,8 @@ Room.find().exec(function(err, rooms) {
           console.log('Listening on port ' + config.app.port + ' for HTTP');
           console.log('Must have redis listening on port 6379');
           console.log('Must have mongodb listening on port 27017');
+          if (config.slack.token && config.slack.botUsername && config.slack.botEmoji)
+            console.log('Posting to Slack as ' + config.slack.botUsername + ' (' + config.slack.botEmoji + ')');
         });
       });
   }

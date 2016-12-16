@@ -12,6 +12,8 @@ module.exports = {
     var name = req.param('name');
     var slug = req.param('slug');
     var description = req.param('description');
+    var slackChannel = req.param('slackChannel');
+    console.log("slackChannel:" + slackChannel);
     
     if (!name || !slug) {
       res.flash('error', 'You must provide a name and a slug!');
@@ -30,6 +32,7 @@ module.exports = {
         name: name,
         slug: slug,
         description: description,
+        slackChannel: slackChannel,
         _creator: req.user._id,
         _owner: req.user._id
       });

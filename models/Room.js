@@ -21,7 +21,8 @@ var RoomSchema = new Schema({
   bans: {
     _tracks: [ { type: ObjectId , ref: 'Track' } ],
     _people: [ { type: ObjectId , ref: 'Person' } ],
-  }
+  },
+  slackChannel: { type: String }
 });
 
 RoomSchema.plugin( slug('name'), {
@@ -113,6 +114,10 @@ RoomSchema.methods.queueTrack = function( track , curator , callback ) {
 };
 RoomSchema.methods.sortPlaylist = function() {
   var room = this;
+
+  // don't sort playlists unless we explicitly configure Soundtrack to
+  if (!room.soundtrack.app.config.settings.sortPlaylists) return;
+
   room.playlist = _.union( [ room.playlist[0] ] , room.playlist.slice(1).sort(function(a, b) {
     if (b.score === a.score) {
       return a.timestamp - b.timestamp;
