@@ -1,0 +1,23 @@
+<div class="landing-view clearfix"
+     ng-controller="LandingController as LandingController"
+     ng-cloak
+     ng-init="LandingController.init({ rooms: {{rooms}} })">
+    <div class="brand-ctas">
+        <div class="brand brand-large brand-white"><{ LandingController.consts.appname }></div>
+        <div class="slogan slogan-large text-white"><{ LandingController.consts.slogan }></div>
+        <div class="ctas">
+            <a class="join-btn btn btn-pill btn-white" href="/register">Join Now</a>
+            <a class="login-link link link-white link-bod" href="/login">Login</a>
+        </div>
+    </div>
+    <div class="rooms clearfix">
+        <span class="rooms-header h2 white">Top Music Halls</span>
+        <div class="rooms-list clearfix">
+            <room-card
+                ng-repeat="(i, room) in LandingController.rooms track by $index"
+                room="room">
+            </room-card>
+        </div>
+    </div>
+    <{ LandingController.foo }>
+</div>

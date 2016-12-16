@@ -3,6 +3,37 @@ var _ = require('underscore');
 
 module.exports = {
   index: function(req, res, next) {
+    if( !req.user ) {
+        var sortedRooms = [];
+        return Room.find().exec(function(err, rooms) {
+          rooms.forEach(function( room ) {
+            var roomName = room.slug;
+            var cachedRoom = req.app.locals.rooms[ roomName ];
+            cachedRoom.description = room.description;
+            cachedRoom.listenerCount = Object.keys(cachedRoom.listeners).length;
+            sortedRooms.push(cachedRoom);
+          });
+
+          sortedRooms = sortedRooms.sort(function(a, b) {
+            return b.listenerCount - a.listenerCount;
+          });
+
+          return async.map( sortedRooms , function( room , done ) {
+            Person.populate( room , {
+              path: '_owner'
+            }, done );
+          } , function(err, finalRooms) {
+            Person.count({}, function(err, userCount) {
+              return res.render('landing', {
+                layout: 'external',
+                rooms: JSON.stringify(finalRooms),
+                userCount: userCount
+              });
+            });
+          });
+        });
+    }
+
     if (!req.roomObj) {
       var sortedRooms = [];
       return Room.find().exec(function(err, rooms) {
@@ -13,11 +44,11 @@ module.exports = {
           cachedRoom.listenerCount = Object.keys(cachedRoom.listeners).length;
           sortedRooms.push(cachedRoom);
         });
-        
+
         sortedRooms = sortedRooms.sort(function(a, b) {
           return b.listenerCount - a.listenerCount;
         });
-        
+
         return async.map( sortedRooms , function( room , done ) {
           Person.populate( room , {
             path: '_owner'
@@ -25,14 +56,14 @@ module.exports = {
         } , function(err, finalRooms) {
           Person.count({}, function(err, userCount) {
             return res.render('rooms', {
-              rooms: finalRooms,
+              rooms: JSON.stringify(finalRooms),
               userCount: userCount
-            });          
+            });
           });
         });
       });
     }
-    
+
     async.parallel([
       collectChats,
       collectPlaylists
@@ -40,7 +71,7 @@ module.exports = {
       var messages = results[0].reverse();
       var playlists = results[1];
 
-      res.render('index', {
+      res.render('room', {
           messages: messages
         , backup: []
         , playlists: playlists || []
@@ -50,9 +81,9 @@ module.exports = {
             description: req.roomObj.description
           }
       });
-      
+
     });
-    
+
     function collectChats( done ) {
       Chat.find({
         _room: req.roomObj._id
@@ -87,7 +118,7 @@ module.exports = {
   },
   stats: function(req, res, next) {
     var LIMIT = 50;
-    
+
     var functions = [
       function collectTopTracks( done ) {
         Play.aggregate([
@@ -128,13 +159,13 @@ module.exports = {
         } );
       }
     ];
-    
+
     async.parallel( functions , function(err, results) {
       var stats = {
         topTracks: results[0],
         topDJs: results[1]
       }
-      
+
       res.format({
         json: function() { res.send(stats); },
         html: function() { res.render('stats', stats ); }

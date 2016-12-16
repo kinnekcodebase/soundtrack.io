@@ -1,0 +1,15 @@
+.rooms-view {
+    margin-top: 100px
+}
+    .rooms-view .view-details {
+        margin: 60px 0;
+        text-align: center;
+    }
+    .rooms-view .view-details h5 {
+        margin: 40px 0 20px;
+    }
+    .room-card-component {
+        width: 23%;
+        margin: 1%;
+        float: left;
+    }

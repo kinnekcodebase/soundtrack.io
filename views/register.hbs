@@ -1,0 +1,23 @@
+<header class="header clearfix" ng-controller="HeaderController as HeaderController">
+    <a href="/"><span class="brand brand-medium brand-white"><{ HeaderController.consts.appname }></span></a>
+    <a class="link link-white link-bold" href="/login">Login</a>
+</header>
+
+<div class="register-view clearfix"
+     ng-controller="RegisterController as RegisterController"
+     ng-cloak
+     ng-init="RegisterController.init()">
+    <form class="registerForm" action="/register" method="post">
+        <span class="h1 white form-header">Become a <{ RegisterController.consts.appname }> member</span>
+        <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Username" />
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password" />
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="passwordAgain" placeholder="Password Again" />
+        </div>
+        <button class="btn btn-pill btn-white btn-form" type="submit">Join Now</button>
+    </form>
+</div>

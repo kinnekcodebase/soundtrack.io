@@ -1,0 +1,44 @@
+<!doctype html>
+<html ng-app="ExternalApp">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700|Montserrat:400,700" rel="stylesheet">
+
+    <!-- Vendors -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- App -->
+    <link rel="stylesheet" href="/app/css/globals.css" />
+    <link rel="stylesheet" href="/app/css/external.css" />
+    <link rel="stylesheet" href="/app/css/external/landing.css" />
+    <link rel="stylesheet" href="/app/css/external/register.css" />
+    <link rel="stylesheet" href="/app/css/external/login.css" />
+</head>
+<body ng-controller="ExternalController as ExternalController" ng-cloak>
+    <div class="loading-overlay" ng-if="::false"></div>
+
+    <div class="app"  ng-cloak>
+        <div class="app-content clearfix">
+            {{{body}}}
+        </div>
+    </div>
+
+    <!-- Vendors -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular-animate.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular-aria.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular-messages.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular-touch.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- App -->
+    <script type="text/javascript" src="/app/js/app.shared.js"></script>
+    <script type="text/javascript" src="/app/js/app.external.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+.landing-view {
+    margin-top: 25%;
+    margin-left: 10%;
+    width: 500%;
+    overflow-x: hidden;
+}
+    .landing-view .join-btn {
+        margin-right: 30px;
+    }
+
+    .landing-view .brand-ctas,
+    .landing-view .rooms {
+        float: left;
+    }
+
+    .landing-view .brand-ctas {
+        margin-top: 80px;
+        width: 8%;
+    }
+
+    .landing-view .brand-ctas .ctas {
+        margin-top: 30px;
+    }
+
+    .landing-view .rooms {
+        overflow: hidden;
+        width: 90%;
+        padding-left: 30px;
+    }
+        .landing-view .rooms .rooms-header {
+            display: block;
+            margin-bottom: 30px;
+        }
+        .landing-view .rooms .rooms-list {
+            width: 100%;
+        }
+        .landing-view .rooms .room-card-component {
+            float: left;
+            margin-right: 30px;
+        }

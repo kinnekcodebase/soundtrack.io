@@ -1,0 +1,24 @@
+<header class="header clearfix" ng-controller="HeaderController as HeaderController">
+    <a href="/"><span class="brand brand-medium brand-gradient"><{ HeaderController.consts.appname }></span></a>
+    <span class="user">Hi, <{ InternalController.user.username }> <a class="link link-blue" href="/logout">sign out?</a></span>
+</header>
+
+<div class="rooms-view clearfix"
+     ng-controller="RoomListController as RoomListController"
+     ng-cloak
+     ng-init="RoomListController.init({ rooms: {{rooms}} })">
+
+    <div class="view-details">
+        <h1>Music Halls</h1>
+        <h2>Join a Music Hall to listen to the team’s playlist!</h2>
+        <h5>Can’t find what you’re looking for?</h5>
+        <span class="btn btn-pill btn-pink">Create a music hall</span>
+    </div>
+
+    <div class="rooms-list clearfix">
+        <room-card
+         ng-repeat="(i, room) in RoomListController.rooms track by $index"
+         room="room">
+        </room-card>
+    </div>
+</div>

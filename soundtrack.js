@@ -4,6 +4,8 @@ var database = require('./db');
 var lang = require('./lang');
 var util = require('./util');
 var express = require('express');
+var cons = require('consolidate');
+var exphbs  = require('express-handlebars');
 
 // application setup
 var app = express();
@@ -12,6 +14,15 @@ var rest = require('restler');
 var async = require('async');
 var redis = require('redis');
 var sockjs = require('sockjs');
+var hbs = exphbs.create({
+    extname: '.hbs',
+    defaultLayout: 'internal',
+    helpers: {
+        toJSONString : function(object) {
+          return JSON.stringify(object);
+        }
+    }
+});
 
 // some convenience helpers
 var _ = require('underscore');
@@ -46,8 +57,11 @@ if (config.jobs && config.jobs.enabled) {
   });
 }
 
+app.engine('.hbs', hbs.engine);
+app.set('view engine', '.hbs');
+// app.engine('html', cons.swig)
 app.set('views', __dirname + '/views');
-app.set('view engine', 'jade');
+// app.set('view engine', 'html');
 app.set('strict routing', true);
 app.use(express.static(__dirname + '/public'));
 
@@ -232,7 +246,7 @@ function authorize(role) {
     case 'host':
       return function( req, res, next ) {
         if (~req.user.roles.indexOf('admin')) return next();
-        
+
         // TODO: fix this upstream
         if (!app.rooms[ req.room ]._owner._id && app.rooms[ req.room ]._owner) {
           app.rooms[ req.room ]._owner = {
@@ -886,7 +900,7 @@ app.post('/:usernameSlug/sets/:playlistID', requireLogin, playlists.addTrack );
 app.post('/:usernameSlug/sets/:playlistID/edit', requireLogin, playlists.edit ); // TODO: fix URL
 
 app.get('/register', redirectToMainSite , function(req, res) {
-  res.render('register');
+  res.render('register', {layout: 'external'});
 });
 
 app.post('/register', function(req, res) {
@@ -918,7 +932,7 @@ app.post('/register', function(req, res) {
     Person.register(new Person(body), req.body.password, function(err, user) {
       if (err) {
         req.flash('error', 'Something went wrong: ' + err);
-        return res.render('register', { user : user });
+        return res.render('register', { layout: 'external', user : user });
       } else {
         req.logIn(user, function(err) {
           req.flash('info', lang.en.intro.replace('{{username}}', user.slug ) );
@@ -947,6 +961,7 @@ app.post('/settings', requireLogin, function(req, res, next) {
 
 app.get('/login', function(req, res) {
   res.render('login', {
+    layout: 'external',
     next: req.param('next')
   });
 });
@@ -986,7 +1001,7 @@ app.patch('/rooms/:roomSlug', requireLogin, function(req, res, next) {
     if (err || !room) return next();
     if (!room._owner) return next();
     if (room._owner.toString() !== req.user._id.toString()) return next();
-    
+
     room.description = req.param('description');
     room.slackChannel = req.param('slackChannel');
     room.save(function(err) {
@@ -1019,6 +1034,11 @@ app.get('/:usernameSlug/:playlistSlug', playlists.view);
 app.get('/:usernameSlug/plays', people.listPlays);
 app.get('/:usernameSlug/mentions', people.mentions);
 app.get('/:usernameSlug', redirectToMainSite , people.profile);
+
+app.get('/partials/:name', function (req, res){
+    var name = req.params.name;
+    res.render('partials/' + name, {layout: null});
+});
 
 // catch-all route (404)
 app.get('*', function(req, res) {
