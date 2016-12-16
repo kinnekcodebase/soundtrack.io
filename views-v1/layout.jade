@@ -68,6 +68,9 @@ html(lang="en-US", ng-app="soundtrack-io")
     script(src="/video-js/video.dev.js")
     script(src="/js/youtube.js")
     script(src="/js/sockjs-0.3.min.js")
+    script.
+      var youtubeToken = "#{config.youtube.token}" || "";
+      var soundcloudId = "#{config.soundcloud.id}" || "";
     script(src="/js/app.js")
 
     base

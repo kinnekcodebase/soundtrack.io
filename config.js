@@ -20,6 +20,10 @@ module.exports = {
       clientTimeout: 2 * 60 * 1000
     , checkInterval: 30 * 1000
   },
+  settings: {
+    sortPlaylists: process.env.SOUNDTRACK_SORT_PLAYLISTS || false,
+    skipScore: process.env.SOUNDTRACK_SKIP_SCORE || -3
+  },
   lastfm: {
       key: process.env.SOUNDTRACK_LASTFM_KEY       || 'key here'
     , secret: process.env.SOUNDTRACK_LASTFM_SECRET || 'secret here'
@@ -37,8 +41,7 @@ module.exports = {
     botUsername: process.env.SOUNDTRACK_SLACK_BOT_USERNAME || 'DSKO DJ',
     botEmoji: process.env.SOUNDTRACK_SLACK_BOT_EMOJI || ':tinatwerk:'
   },
-  settings: {
-    sortPlaylists: process.env.SOUNDTRACK_SORT_PLAYLISTS || false,
-    skipScore: process.env.SOUNDTRACK_SKIP_SCORE || -3
+  youtube: {
+    token: process.env.SOUNDTRACK_YOUTUBE_TOKEN || ''
   }
 }

@@ -340,7 +340,7 @@ $(window).load(function() {
 
   // must be after DOM loads so we have access to the user-model
   soundtrack = new Soundtrack();
-  youtube = new YouTube('AIzaSyBnCN68b8W5oGgBKKkM2cSQhSygnLPApEs');
+  youtube = new YouTube(window.youtubeToken);
   if ($('#main-player').length) {
     soundtrack.player = videojs('#main-player', {
       techOrder: ['html5', 'youtube', 'flash']
@@ -427,7 +427,7 @@ $(window).load(function() {
                 msg.data.sources.soundcloud.forEach(function(item) {
                   sources.push({
                     type: 'audio/mp3',
-                    src: 'https://api.soundcloud.com/tracks/' + item.id + '/stream?client_id=7fbc3f4099d3390415d4c95f16f639ae',
+                    src: 'https://api.soundcloud.com/tracks/' + item.id + '/stream?client_id='+window.soundcloudId,
                     poster: (item.data) ? item.data.artwork_url : undefined
                   });
                 });
@@ -447,7 +447,7 @@ $(window).load(function() {
                 msg.data.sources.soundcloud.forEach(function(item) {
                   sources.push({
                     type: 'audio/mp3',
-                    src: 'https://api.soundcloud.com/tracks/' + item.id + '/stream?client_id=7fbc3f4099d3390415d4c95f16f639ae',
+                    src: 'https://api.soundcloud.com/tracks/' + item.id + '/stream?client_id='+window.soundcloudId,
                     poster: (item.data) ? item.data.artwork_url : undefined
                   });
                 });
@@ -1220,7 +1220,7 @@ $(window).load(function() {
       });
     });
 
-    $.getJSON('https://api.soundcloud.com/tracks.json?&limit=50&client_id=7fbc3f4099d3390415d4c95f16f639ae', {
+    $.getJSON('https://api.soundcloud.com/tracks.json?&limit=50&client_id='+window.soundcloudId, {
       q: query
     }, function(tracks) {
       if (!tracks.length) {
