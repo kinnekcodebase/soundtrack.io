@@ -820,9 +820,10 @@ app.post('/playlist/:trackID', requireLogin, function(req, res, next) {
   var voteDir = req.param('v')
   var newVote =  voteDir == 'up' ? 1 : -1;
   var currentVote = room.playlist[ index ].votes[ req.user._id ];
+  var canSlack = room.slackChannel && req.user.profiles && req.user.profiles.slack && req.user.profiles.slack.username;
   if (currentVote != newVote) { // handles both no vote yet & wanna change vote cases
     room.playlist[ index ].votes[ req.user._id ] = newVote;
-    if (room.slackChannel && req.user.profiles && req.user.profiles.slack && req.user.profiles.slack.username) {
+    if (canSlack) {
       Track.findOne( { _id: req.params.trackID } ).populate('_artist _artists').exec(function(err, track) {
         var verbed = voteDir + 'voted';
         var emoji = ":thumbs" + voteDir + "::skin-tone-3:";
@@ -841,16 +842,38 @@ app.post('/playlist/:trackID', requireLogin, function(req, res, next) {
   //console.log('track score: ' + room.playlist[ index ].score);
   //console.log('track votes: ' + JSON.stringify(room.playlist[ index ].votes));
 
-  room.sortPlaylist();
-  room.savePlaylist(function() {
+  var postSaveCB = function() {
     room.broadcast({
       type: 'playlist:update'
     });
-
     res.send({
       status: 'success'
     });
-  });
+  }
+
+  if (room.playlist[ index ].score <= config.settings.skipScore) {
+    console.log('track has score ' + room.playlist[ index ].score + ' => SKIPPING!');
+    var skipMessage = function() {
+        if (canSlack) {
+          Track.findOne( { _id: req.params.trackID } ).populate('_artist _artists').exec(function(err, track) {
+          soundtrack.slack.postMessage(room.slackChannel,
+            "*" + track.title + "* by *" + track._artist.name + "* " +
+            "was just skipped in *" + room.name + "* :cryingjordan:")});
+        }
+    }
+    if (index == 0) {
+      room.nextSong(skipMessage);
+    } else {
+      room.playlist.splice(index, 1);
+      skipMessage();
+      room.ensureQueue(function() {
+        room.savePlaylist(postSaveCB);
+      });
+    }
+  } else {
+    room.sortPlaylist();
+    room.savePlaylist(postSaveCB);
+  }
 });
 
 app.post('/playlist', requireLogin , function(req, res) {
