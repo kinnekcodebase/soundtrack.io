@@ -6,7 +6,7 @@
 <div class="rooms-view clearfix"
      ng-controller="RoomListController as RoomListController"
      ng-cloak
-     ng-init="RoomListController.init({ rooms: {{rooms}} })">
+     ng-init="RoomListController.init({ config: {{toJSONString config.app}}, rooms: {{rooms}} })">
 
     <div class="view-details">
         <h1>Music Halls</h1>
@@ -17,8 +17,9 @@
 
     <div class="rooms-list clearfix">
         <room-card
-         ng-repeat="(i, room) in RoomListController.rooms track by $index"
-         room="room">
+             ng-repeat="(i, room) in RoomListController.rooms track by $index"
+             room="room"
+             clickable>
         </room-card>
     </div>
 </div>

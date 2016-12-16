@@ -36,6 +36,16 @@ angular
             var $ctrl = this;
 
             $ctrl.color = _.shuffle( colors )[0];
+
+            $ctrl.clickable = typeof $attrs.clickable !== 'undefined';
+
+            $ctrl.onClick = function( e ){
+                if( !$ctrl.clickable ){
+                    return;
+                };
+
+                window.location.href = '//' + $ctrl.room.slug + '.' + window.location.host;
+            }
         }
     ]
 });

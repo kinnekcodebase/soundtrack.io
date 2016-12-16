@@ -30,8 +30,8 @@ angular
     var $ctrl = this;
 
     $ctrl.init = function( pageData ){
+        $ctrl.config = pageData.config;
         $ctrl.rooms = pageData.rooms;
-        console.log('%c$ctrl.rooms ', 'color:purple;', $ctrl.rooms );
     }
 })
 
