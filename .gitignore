@@ -15,3 +15,5 @@ npm-debug.log
 config.js
 
 config.js
+
+node_modules/
