@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Music-Hall---View" transform="translate(-1360.000000, -51.000000)" fill="#000000">
+            <g id="playlist-overlay">
+                <path d="M1375.392,64.998 L1387.72,52.668 C1388.106,52.286 1388.106,51.66 1387.72,51.278 C1387.338,50.894 1386.716,50.894 1386.33,51.278 L1374,63.606 L1361.67,51.278 C1361.286,50.894 1360.662,50.894 1360.278,51.278 C1359.894,51.66 1359.894,52.286 1360.278,52.668 L1372.608,64.998 L1360.28,77.326 C1359.896,77.71 1359.896,78.334 1360.28,78.718 C1360.664,79.102 1361.286,79.102 1361.672,78.718 L1374,66.388 L1386.328,78.718 C1386.714,79.102 1387.336,79.102 1387.718,78.718 C1388.104,78.334 1388.104,77.71 1387.718,77.326 L1375.392,64.998 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
