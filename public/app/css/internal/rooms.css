@@ -1,5 +1,5 @@
 .rooms-view {
-    margin-top: 100px
+    margin: 100px 0;
 }
     .rooms-view .view-details {
         margin: 60px 0;
@@ -12,4 +12,23 @@
         width: 23%;
         margin: 1%;
         float: left;
+    }
+    .rooms-view .modal-container .form-group.url-group {
+        position: relative;
+    }
+    .rooms-view .modal-container .host {
+        position: absolute;
+        top: 13px;
+        right: 0;
+        color: #777;
+        font-weight: 300; 
+    }
+    .rooms-view .modal-container .btn.btn-pill {
+        margin-bottom: 20px;
+    }
+    .rooms-view .modal-container form {
+        display: block;
+        position: relative;
+        width: 40%;
+        margin: 30px 30%;
     }

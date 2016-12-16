@@ -12,7 +12,11 @@
         <h1>Music Halls</h1>
         <h2>Join a Music Hall to listen to the team’s playlist!</h2>
         <h5>Can’t find what you’re looking for?</h5>
-        <span class="btn btn-pill btn-pink">Create a music hall</span>
+        <a href
+            class="btn btn-pill btn-pink"
+            ng-click="RoomListController.modal.open()">
+            Create a music hall
+        </a>
     </div>
 
     <div class="rooms-list clearfix">
@@ -21,5 +25,46 @@
              room="room"
              clickable>
         </room-card>
+    </div>
+
+    <div class="modal-container" ng-show="RoomListController.modal.show === true">
+        <div class="modal-close" ng-click="RoomListController.modal.cancel()"></div>
+        <h3 class="modal-header">Create a Music Hall</h3>
+
+        <div class="modal-body">
+            <form name="RoomListController.createRoomForm" novalidate>
+                <div class="form-group">
+                    <input
+                        type="text"
+                        class="form-control form-conrol-dark"
+                        ng-model="RoomListController.createRoomFormData.name"
+                        name="name"
+                        ng-keyup="RoomListController.onNameKeyup( $event )"
+                        placeholder="Name" />
+                </div>
+                <div class="form-group url-group">
+                    <input
+                        type="text"
+                        class="form-control form-conrol-dark"
+                        ng-model="RoomListController.createRoomFormData.slug"
+                        name="slug"
+                        placeholder="Url" />
+                    <span class="host">.<{ RoomListController.host }></span>
+                </div>
+                <div class="form-group">
+                    <input
+                        type="text"
+                        class="form-control form-conrol-dark"
+                        ng-model="RoomListController.createRoomFormData.slack"
+                        name="slack"
+                        placeholder="Slack room (optional)" />
+                </div>
+            </form>
+        </div>
+
+        <div class="modal-ctas">
+            <button class="btn btn-pill btn-pink btn-form" ng-click="RoomListController.modal.submit()">Create</button><br />
+            <a href class="link link-bold link-blue" ng-click="RoomListController.modal.cancel()">Cancel</a>
+        </div>
     </div>
 </div>
