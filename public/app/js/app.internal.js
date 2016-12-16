@@ -16,7 +16,6 @@ angular
 
     $ctrl.init = function( pageData ){
         $ctrl.user = pageData.user;
-        console.log('%cpageData', 'color:purple;', pageData);
     }
 })
 .controller('HeaderController', function( $scope, consts ){
@@ -26,7 +25,7 @@ angular
     $ctrl.init = function(){
     }
 })
-.controller('RoomListController', function( $scope ){
+.controller('RoomListController', function( $scope, $http ){
     var $ctrl = this;
     $ctrl.createRoomForm = null;
 
@@ -40,6 +39,9 @@ angular
 
     // https://gist.github.com/mathewbyrne/1280286
     $ctrl.toSlug = function( str ){
+        if( typeof str !== 'string' ){
+            return '';
+        }
         return str.toLowerCase()
                 .replace(/[^\w\s-]/g, '') // remove non-word [a-z0-9_], non-whitespace, non-hyphen characters
                 .replace(/[\s_-]+/g, '-') // swap any length of whitespace, underscore, hyphen characters with a single -
@@ -48,7 +50,7 @@ angular
 
     $ctrl.onNameKeyup = function( e ){
         var slugInput = $ctrl.createRoomForm.slug;
-        if( slugInput.$dirty ){
+        if( slugInput.$dirty && $ctrl.createRoomFormData.slug && $ctrl.createRoomFormData.slug.length > 0){
             return;
         }
 
@@ -66,12 +68,35 @@ angular
             $('.app').css('overflow', 'auto');
         },
         cancel: function(){
-            this.close()
+            if( $ctrl.createRoomForm ){
+                $ctrl.createRoomForm.$setPristine();
+                $ctrl.createRoomForm.$setUntouched();
+            }
+
+            $ctrl.createRoomFormData = {};
+
+            this.close();
         },
         submit: function(){
+            if( !$ctrl.createRoomForm.$valid ){
+                return;
+            }
 
+            var params = {
+                method  : 'POST',
+                url     : '/rooms',
+                data    : $.param($ctrl.createRoomFormData),  // pass in data as strings
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+            };
+
+            $http(params).then( this.onSubmitSuccess.bind(this), this.onSubmitError.bind(this) );
+        },
+        onSubmitSuccess: function( res ){
+            console.log( res )
+        },
+        onSubmitError: function( err ){
+            console.log( err )
         }
     };
 })
-
 ;
