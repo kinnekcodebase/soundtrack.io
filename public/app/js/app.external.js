@@ -25,6 +25,8 @@ angular
     var $ctrl = this;
     $ctrl.consts = consts;
 
+    $('.app').addClass('show-gif');
+
     $ctrl.init = function( pageData ){
         $ctrl.rooms = pageData.rooms;
         // console.log('%c$ctrl.rooms ', 'color:purple;', $ctrl.rooms );
