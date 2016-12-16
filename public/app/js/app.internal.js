@@ -23,9 +23,16 @@ angular
     $ctrl.consts = consts;
 
     $ctrl.init = function(){
+        $ctrl.host = window.location.host;
+
+        var hostParts = $ctrl.host.split('.');
+        if( hostParts.length > 2 ){
+            hostParts.shift();
+            $ctrl.host = hostParts.join('.');
+        }
     }
 })
-.controller('RoomListController', function( $scope, $http ){
+.controller('RoomListController', function( $scope, $http, $timeout ){
     var $ctrl = this;
     $ctrl.createRoomForm = null;
 
@@ -34,7 +41,6 @@ angular
         $ctrl.config = pageData.config;
         $ctrl.rooms = pageData.rooms;
         $ctrl.host = window.location.host;
-        console.log('%c$ctrl', 'color:purple;', $ctrl);
     }
 
     // https://gist.github.com/mathewbyrne/1280286
@@ -89,7 +95,11 @@ angular
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
             };
 
-            $http(params).then( this.onSubmitSuccess.bind(this), this.onSubmitError.bind(this) );
+            $http(params);
+
+            $timeout(function(){
+                window.location.href = '//' + $ctrl.createRoomFormData.slug + '.' + window.location.host;
+            }, 100);
         },
         onSubmitSuccess: function( res ){
             console.log( res )
@@ -99,4 +109,17 @@ angular
         }
     };
 })
+.controller('RoomController', function( $scope, $http, $timeout ){
+    var $ctrl = this;
+    $ctrl.addTrackForm = null;
+
+    $ctrl.init = function( pageData ){
+        console.log('%cpageData', 'color:purple;', pageData);
+        $ctrl.addTrackFormData = {};
+        $ctrl.config = pageData.config;
+        $ctrl.room = pageData.room;
+        $ctrl.host = window.location.host;
+        console.log('%c$ctrl', 'color:purple;', $ctrl);
+    }
+});
 ;

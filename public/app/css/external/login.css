@@ -1,8 +1,10 @@
 .login-view {
-
+    height: 100%;
 }
     .login-view .loginForm {
-        margin-top: 10%;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
         text-align: center;
     }
 

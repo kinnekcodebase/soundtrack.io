@@ -54,8 +54,12 @@ module.exports = {
           app.locals.rooms = app.rooms;
 
           var config = req.app.config;
-          return res.send( room );
-        //   return res.redirect( ((config.app.safe) ? 'https://' : 'http://') + slug + '.' + config.app.host );
+        //   res.sendStatus(200);
+        // //   res.format({
+        // //     json: function() { res.send( room ); }
+        // //   })
+        // //   res.status(200).json( room );
+        //   return res.redirect( ((config.app.safe) ? 'https://' : 'http://') + slug + '.' + config.app.host + ':');
         }
 
         function errorHandler(err) {

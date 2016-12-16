@@ -1,5 +1,5 @@
-<header class="header clearfix" ng-controller="HeaderController as HeaderController">
-    <a href="/"><span class="brand brand-medium brand-gradient"><{ HeaderController.consts.appname }></span></a>
+<header class="header clearfix" ng-controller="HeaderController as HeaderController" ng-init="HeaderController.init()">
+    <a ng-href="//<{HeaderController.host}>"><span class="brand brand-medium brand-gradient"><{ HeaderController.consts.appname }></span></a>
     <span class="user">Hi, <{ InternalController.user.username }> <a class="link link-blue" href="/logout">sign out?</a></span>
 </header>
 

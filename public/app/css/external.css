@@ -31,6 +31,7 @@
     .app .app-content {
         display: block;
         position: relative;
+        height: 100%;
     }
 
     .app a {
@@ -39,7 +40,7 @@
 
 .header {
     display: block;
-    position: relative;
+    position: fixed;
     width: 100%;
     text-align: center;
     padding: 50px;
