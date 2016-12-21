@@ -30,6 +30,10 @@ body {
     font-weight: 700;
 }
 
+.text-small {
+    font-size: 12px;
+}
+
 h1, .h1 {
     color: #333;
     font-weight: 300;
@@ -91,7 +95,11 @@ h5, .h5 {
 
     transition: all 500ms ease-in-out;
 }
-    .btn.btn-pill:hover {
+    .btn.btn-pill[disabled] {
+        opacity: 0.5;
+    }
+
+    .btn.btn-pill:hover:not([disabled]) {
         box-shadow: 0 0 10px 0 rgba(0,0,0,0.30);
     }
 
@@ -335,7 +343,7 @@ h5, .h5 {
     height: 100%;
     z-index: 10;
 
-    background: rgba(255,255,255,0.97);
+    background: rgba(255,255,255,0.98);
 }
 
     .modal-container .modal-close {
@@ -372,3 +380,13 @@ h5, .h5 {
         left: 0;
         text-align: center;
     }
+
+.modal-container.has-animation.ng-hide-add,
+.modal-container.has-animation.ng-hide-remove {
+    transition: all ease-in-out 500ms;
+}
+
+.modal-container.has-animation.ng-hide {
+    top: -80%;
+    opacity: 0;
+}

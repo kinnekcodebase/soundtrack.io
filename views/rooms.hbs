@@ -27,7 +27,7 @@
         </room-card>
     </div>
 
-    <div class="modal-container" ng-show="RoomListController.modal.show === true">
+    <div class="modal-container has-animation" ng-show="RoomListController.modal.show === true">
         <div class="modal-close" ng-click="RoomListController.modal.cancel()"></div>
         <h3 class="modal-header">Create a Music Hall</h3>
 
@@ -95,14 +95,23 @@
 
                     <span class="bar"></span>
 
-                    <label>Slack Room (optional)</label>
+                    <label>Slack Room <span class="text-small">(optional)</span></label>
                 </div>
             </form>
         </div>
 
         <div class="modal-ctas">
-            <button class="btn btn-pill btn-pink btn-form" ng-click="RoomListController.modal.submit()">Create</button><br />
-            <a href class="link link-bold link-blue" ng-click="RoomListController.modal.cancel()">Cancel</a>
+            <button class="btn btn-pill btn-pink btn-form"
+                    ng-click="RoomListController.modal.submit()"
+                    ng-disabled="RoomListController.createRoomForm.$invalid">
+                    Create
+            </button>
+            <br />
+            <a  href
+                class="link link-bold link-blue"
+                ng-click="RoomListController.modal.cancel()">
+                Cancel
+            </a>
         </div>
     </div>
 </div>
