@@ -145,6 +145,7 @@ h5, .h5 {
 
     width: 285px;
     height: 285px;
+    padding: 15px;
 
     border-radius: 4px;
     background: #fff;
@@ -165,6 +166,9 @@ h5, .h5 {
         font-size: 2.4rem;
         color: #fff;
         text-shadow: 0 2px 4px rgba(0,0,0,0.20);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .room-card-component.clickable {
         cursor: pointer;

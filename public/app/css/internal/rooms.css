@@ -9,8 +9,9 @@
         margin: 40px 0 20px;
     }
     .room-card-component {
-        width: 23%;
-        margin: 1%;
+        height: 300px;
+        width: 96%;
+        margin: 2%;
         float: left;
     }
     .rooms-view .modal-container .form-group.url-group {
@@ -21,7 +22,7 @@
         top: 13px;
         right: 0;
         color: #777;
-        font-weight: 300; 
+        font-weight: 300;
     }
     .rooms-view .modal-container .btn.btn-pill {
         margin-bottom: 20px;
@@ -31,4 +32,18 @@
         position: relative;
         width: 40%;
         margin: 30px 30%;
+    }
+
+    @media( min-width: 544px ){
+        .room-card-component {
+            width: 46%;
+            margin: 2%;
+        }
+    }
+
+    @media( min-width: 992px ){
+        .room-card-component {
+            width: 30%;
+            margin: 1%;
+        }
     }
