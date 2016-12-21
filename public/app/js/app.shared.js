@@ -25,7 +25,8 @@ angular
 .component('roomCard', {
     templateUrl: '/partials/roomCard',
     bindings: {
-        room: '<'
+        room: '<',
+        onClickCallback: '&?onClick'
     },
     controller: [
         '$scope',
@@ -44,7 +45,12 @@ angular
                     return;
                 };
 
-                window.location.href = '//' + $ctrl.room.slug + '.' + window.location.host;
+                if( typeof $ctrl.onClickCallback === 'function' ){
+                    $ctrl.onClickCallback({$event: e, room: $ctrl.room});
+                } else {
+                    window.location.href = '//' + $ctrl.room.slug + '.' + window.location.host;
+                }
+
             }
         }
     ]

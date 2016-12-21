@@ -23,11 +23,22 @@
         <room-card
              ng-repeat="(i, room) in RoomListController.rooms track by $index"
              room="room"
+             on-click="RoomListController.selectedRoom.set($event, room)"
              clickable>
         </room-card>
     </div>
 
-    <div class="modal-container has-animation" ng-show="RoomListController.modal.show === true">
+    <!-- <div ng-if="RoomListController.selectedRoom.isVisible">
+        <iframe
+            class="iframe-container"
+            ng-src="<{RoomListController.selectedRoom.url}>"
+            frameborder="0"
+            height="100%"
+            width="100%">
+        </iframe>
+    </div> -->
+
+    <div class="modal-container has-animation" ng-show="RoomListController.modal.isVisible === true">
         <div class="modal-close" ng-click="RoomListController.modal.cancel()"></div>
         <h3 class="modal-header">Create a Music Hall</h3>
 
@@ -67,6 +78,7 @@
                         type="text"
                         class="form-control"
                         ng-model="RoomListController.createRoomFormData.slug"
+                        ng-keyup="RoomListController.onSlugKeyup( $event )"
                         name="slug"
                         required="true" />
 

@@ -231,7 +231,7 @@ h5, .h5 {
 
     color: #777;
     font-size: 1.8rem;
-    font-weight: normal;
+    font-weight: 300;
 
     transition: 300ms ease all;
     -moz-transition: 300ms ease all;
@@ -274,11 +274,11 @@ h5, .h5 {
     -webkit-transition: 300ms ease all;
 }
 
-.form-group.form-group-animated  .bar:before {
+.form-group.form-group-animated .bar:before {
     left: 50%;
 }
 
-.form-group.form-group-animated  .bar:after {
+.form-group.form-group-animated .bar:after {
     right: 50%;
 }
 
@@ -295,6 +295,7 @@ h5, .h5 {
     border-bottom: 1px solid #333;
     padding: 0;
     font-size: 1.6rem;
+    font-weight: 300;
     color: #333;
     height: 50px;
 }
@@ -331,6 +332,20 @@ h5, .h5 {
 .form-group:not(.form-group-animated).has-error .form-control:focus,
 .form-group:not(.form-group-animated) .form-control:focus {
     border-bottom: 2px solid #FA00FF;
+}
+
+
+.iframe-container {
+    position: absolute;
+    display: block;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    z-index: 1;
 }
 
 

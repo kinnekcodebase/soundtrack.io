@@ -32,7 +32,7 @@ angular
         }
     }
 })
-.controller('RoomListController', function( $scope, $http, $timeout ){
+.controller('RoomListController', function( $scope, $http, $timeout, $sce ){
     var $ctrl = this;
     $ctrl.createRoomForm = null;
 
@@ -54,6 +54,14 @@ angular
                 .replace(/^-+|-+$/g, ''); // remove leading, trailing -
     }
 
+    $ctrl.onSlugKeyup = function( e ){
+        if( typeof $ctrl.createRoomFormData.slug === 'undefined'
+            || $ctrl.createRoomFormData.slug === null
+            || $ctrl.createRoomFormData.slug.length === 0 ){
+             $ctrl.createRoomForm.slug.$setPristine();
+        }
+    }
+
     $ctrl.onNameKeyup = function( e ){
         var slugInput = $ctrl.createRoomForm.slug;
         if( slugInput.$dirty && $ctrl.createRoomFormData.slug && $ctrl.createRoomFormData.slug.length > 0){
@@ -63,14 +71,35 @@ angular
         $ctrl.createRoomFormData.slug = $ctrl.toSlug( $ctrl.createRoomFormData.name );
     }
 
+    $ctrl.selectedRoom = {
+        isVisible: false,
+        data: null,
+        iframeUrl: '',
+        show: function(){
+            this.isVisible = true;
+            $('.app').css('overflow', 'hidden');
+        },
+        hide: function(){
+            this.isVisible = false;
+            $('.app').css('overflow', 'auto');
+        },
+        set: function(e, room){
+            this.data = room;
+            this.data.roomUrl = 'http://' + room.slug + '.' + window.location.host;
+            this.iframeUrl = $sce.trustAsResourceUrl( this.data.roomUrl );
+
+            window.location.href = this.data.roomUrl;
+        }
+    }
+
     $ctrl.modal = {
-        show: false,
+        isVisible: false,
         open: function(){
-            this.show = true;
+            this.isVisible = true;
             $('.app').css('overflow', 'hidden');
         },
         close: function(){
-            this.show = false;
+            this.isVisible = false;
             $('.app').css('overflow', 'auto');
         },
         cancel: function(){
