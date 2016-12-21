@@ -33,39 +33,69 @@
 
         <div class="modal-body">
             <form name="RoomListController.createRoomForm" novalidate>
-                <div class="form-group" ng-class="{'has-error': RoomListController.createRoomForm.name.$error.required && RoomListController.createRoomForm.name.$dirty}">
+                <div class="form-group form-group-animated"
+                     ng-class="{
+                         'has-error': RoomListController.createRoomForm.name.$error.required && RoomListController.createRoomForm.name.$dirty
+                     }">
                     <input
                         type="text"
-                        class="form-control form-conrol-dark"
+                        class="form-control"
                         ng-model="RoomListController.createRoomFormData.name"
                         name="name"
                         ng-keyup="RoomListController.onNameKeyup( $event )"
-                        placeholder="Name"
                         required="true" />
-                        <span class="help-block" ng-messages="RoomListController.createRoomForm.name.$error" ng-show="RoomListController.createRoomForm.name.$dirty" role="alert">
+
+                        <span class="bar"></span>
+
+                        <label>Name</label>
+
+                        <span class="help-block"
+                              ng-class="{
+                                  'placeholder': RoomListController.createRoomForm.name.$pristine || !(RoomListController.createRoomForm.name.$error.required && RoomListController.createRoomForm.name.$dirty)
+                              }"
+                              ng-messages="RoomListController.createRoomForm.name.$error"
+                              role="alert">
                             <span ng-message="required">Required</span>
                         </span>
                 </div>
-                <div class="form-group url-group">
+
+                <div class="form-group url-group form-group-animated"
+                     ng-class="{
+                         'has-error': RoomListController.createRoomForm.slug.$error.required && RoomListController.createRoomForm.slug.$dirty
+                     }">
                     <input
                         type="text"
-                        class="form-control form-conrol-dark"
+                        class="form-control"
                         ng-model="RoomListController.createRoomFormData.slug"
                         name="slug"
-                        placeholder="Url"
                         required="true" />
+
                     <span class="host">.<{ RoomListController.host }></span>
-                    <span class="help-block" ng-messages="RoomListController.createRoomForm.slug.$error.length" ng-show="RoomListController.createRoomForm.slug.$dirty" role="alert">
+
+                    <span class="bar"></span>
+
+                    <label>Subdomain</label>
+
+                    <span class="help-block"
+                          ng-class="{
+                              'placeholder': RoomListController.createRoomForm.slug.$pristine || !(RoomListController.createRoomForm.slug.$error.required && RoomListController.createRoomForm.slug.$dirty)
+                          }"
+                          ng-messages="RoomListController.createRoomForm.slug.$error"
+                          role="alert">
                         <span ng-message="required">Required</span>
                     </span>
                 </div>
-                <div class="form-group">
+
+                <div class="form-group url-group form-group-animated">
                     <input
                         type="text"
-                        class="form-control form-conrol-dark"
-                        ng-model="RoomListController.createRoomFormData.slackChannel"
-                        name="slackChannel"
-                        placeholder="Slack room (optional)" />
+                        class="form-control"
+                        ng-model="RoomListController.createRoomFormData.slackRoom"
+                        name="slackRoom" />
+
+                    <span class="bar"></span>
+
+                    <label>Slack Room (optional)</label>
                 </div>
             </form>
         </div>

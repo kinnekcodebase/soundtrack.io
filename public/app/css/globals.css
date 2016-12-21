@@ -208,34 +208,122 @@ h5, .h5 {
     }
 
 
-.form-control {
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group.form-group-animated {
+    position: relative;
+    margin-bottom: 30px;
+}
+.form-group.form-group-animated label {
+    position: absolute;
+    pointer-events: none;
+    left: 0px;
+    top: 10px;
+
+    color: #777;
+    font-size: 1.8rem;
+    font-weight: normal;
+
+    transition: 300ms ease all;
+    -moz-transition: 300ms ease all;
+    -webkit-transition: 300ms ease all;
+}
+
+.form-group.form-group-animated.form-group-light label {
+    color: rgba(255,255,255,0.7);
+}
+
+.form-group.form-group-animated input:focus ~ label,
+.form-group.form-group-animated input.ng-not-empty ~ label,
+.form-group.form-group-animated input:valid:not(:optional) ~ label {
+    top: -20px;
+    font-size: 1.4rem;
+    color: #777;
+}
+
+.form-group.form-group-animated.form-group-light input:focus ~ label,
+.form-group.form-group-animated.form-group-light input.ng-not-empty ~ label,
+.form-group.form-group-animated.form-group-light input:valid:not(:optional) ~ label {
+    color: rgba(255,255,255,0.7);
+}
+
+.form-group.form-group-animated .bar {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+.form-group.form-group-animated .bar:before,
+.form-group.form-group-animated .bar:after 	{
+    content: '';
+    height: 3px;
+    width: 0;
+    bottom: 0px;
+    position: absolute;
+    background: #FA00FF;
+    transition: 300ms ease all;
+    -moz-transition: 300ms ease all;
+    -webkit-transition: 300ms ease all;
+}
+
+.form-group.form-group-animated  .bar:before {
+    left: 50%;
+}
+
+.form-group.form-group-animated  .bar:after {
+    right: 50%;
+}
+
+.form-group.form-group-animated input:focus ~ .bar:before,
+.form-group.form-group-animated input:focus ~ .bar:after {
+    width: 50%;
+}
+
+.form-group .form-control {
     border-radius: 0;
     background: transparent;
     border: 0;
     box-shadow: none;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid #333;
     padding: 0;
     font-size: 1.6rem;
-    color: #fff;
+    color: #333;
     height: 50px;
 }
-    .form-control.form-conrol-dark {
-        color: #333;
-        border-bottom: 1px solid #333;
+    .form-group.form-group-light .form-control {
+        color: #fff;
+        border-bottom: 1px solid #fff;
     }
-    .has-error .form-control:focus,
-    .form-control:focus {
-        box-shadow: none;
-        border-bottom: 2px solid #FA00FF;
+
+.form-group .help-block {
+    margin: 10px 0;
+    font-size: 1.4rem;
+    line-height: 1;
+    text-align: right;
+}
+    .form-group .help-block.placeholder {
+        height: 14px;
+        font-size: 1px;
+        opacity: 0;
     }
-    .has-error .form-control {
-        box-shadow: none;
-        border-bottom: 1px solid red;
-    }
-    .has-error .help-block {
-        color: red;
-        font-size: 1.4rem;
-    }
+
+.form-group.has-error:not(:focus) .form-control {
+    box-shadow: none;
+    border-bottom: 1px solid red;
+}
+
+.form-group.has-error .help-block {
+    color: red;
+}
+
+.form-group.has-error .form-control:focus,
+.form-group .form-control:focus {
+    box-shadow: none;
+}
+.form-group:not(.form-group-animated).has-error .form-control:focus,
+.form-group:not(.form-group-animated) .form-control:focus {
+    border-bottom: 2px solid #FA00FF;
+}
 
 
 .modal-container {
