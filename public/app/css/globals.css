@@ -2,10 +2,14 @@
     outline: none;
 }
 
+html {
+    font-size: 62.5%;
+}
+
 body {
     background: #FBFBFB;
-    font-size: 62.5%;
     font-family: 'Lato', sans-serif;
+    font-size:  1.6rem;
     line-height: 1.5;
 }
 
@@ -47,6 +51,13 @@ h1, .h1 {
         margin-bottom: 50px;
     }
 
+
+    @media( max-width: 520px ){
+        h1, .h1 {
+            font-size: 4.0rem;
+        }
+    }
+
 h2, .h2 {
     color: #333;
     font-weight: 300;
@@ -81,9 +92,21 @@ h5, .h5 {
         line-height: 1;
     }
 
+    @media( max-width: 520px ){
+        .brand.brand-large {
+            font-size: 6.0rem;
+        }
+    }
+
 .slogan {}
     .slogan.slogan-large {
         font-size: 4.8rem;
+    }
+
+    @media( max-width: 520px ){
+        .slogan.slogan-large {
+            font-size: 3.0rem;
+        }
     }
 
 
@@ -357,6 +380,7 @@ h5, .h5 {
     width: 100%;
     height: 100%;
     z-index: 10;
+    overflow: auto;
 
     background: rgba(255,255,255,0.98);
 }
@@ -389,18 +413,25 @@ h5, .h5 {
     }
     .modal-ctas {
         display: block;
-        position: absolute;
+        position: relative;
         width: 100%;
-        bottom: 15%;
-        left: 0;
         text-align: center;
+        margin-bottom: 60px;
+    }
+
+    @media( min-height: 700px ){
+        .modal-ctas  {
+            position: absolute;
+            margin-bottom: 0;
+            bottom: 15%;
+            left: 0;
+        }
     }
 
 .modal-container.has-animation.ng-hide-add,
 .modal-container.has-animation.ng-hide-remove {
     transition: all ease-in-out 500ms;
 }
-
 .modal-container.has-animation.ng-hide {
     top: -80%;
     opacity: 0;

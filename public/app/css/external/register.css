@@ -3,12 +3,33 @@
 }
     .register-view .registerForm {
         position: relative;
-        top: 50%;
-        transform: translateY(-50%);
         text-align: center;
+        padding: 0px 30px 60px;
     }
 
     .register-view .registerForm .form-group {
-        width: 40%;
-        margin-left: 30%;
+        width: 90%;
+        margin-left: 5%;
+    }
+
+    @media( min-height: 700px ){
+        .register-view .registerForm {
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 30px;
+        }
+    }
+
+    @media( min-width: 780px ){
+        .register-view .registerForm .form-group {
+            width: 70%;
+            margin-left: 15%;
+        }
+    }
+
+    @media( min-width: 1200px ){
+        .register-view .registerForm .form-group {
+            width: 40%;
+            margin-left: 30%;
+        }
     }
